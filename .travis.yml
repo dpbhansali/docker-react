@@ -1,0 +1,13 @@
+sudo: required
+services: 
+  - docker
+
+language: generic 
+# It is to peform the actions we need to perform before performing testing or deployment 
+
+before_install:
+  - docker build -f Dockerfile.dev -t dpbhansali/docker-react .
+
+# Series of command to perform required actions like test the code
+script:
+  - docker run -e CI=true dpbhansali/docker-react npm run test -- --coverage
